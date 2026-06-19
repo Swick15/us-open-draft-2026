@@ -8,36 +8,48 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      background: #08180b;
-      color: #e4f0e4;
+      background: #0b1629;
+      color: #e8edf5;
       font-family: 'Georgia', serif;
       min-height: 100vh;
     }
 
     /* ── Header ── */
     header {
-      background: linear-gradient(160deg, #1b3d20 0%, #0d2410 100%);
-      border-bottom: 3px solid #c9a84c;
+      background: linear-gradient(160deg, #0f2348 0%, #081428 100%);
+      border-bottom: 3px solid #c8a96e;
       padding: 28px 20px 20px;
       text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 120%, rgba(200,169,110,0.08) 0%, transparent 70%);
+      pointer-events: none;
     }
     header .trophy { font-size: 2rem; margin-bottom: 6px; }
     header h1 {
       font-size: 1.9rem;
-      color: #c9a84c;
-      letter-spacing: 3px;
+      color: #ffffff;
+      letter-spacing: 4px;
       text-transform: uppercase;
+      font-weight: normal;
     }
+    header h1 span { color: #c8a96e; }
     header .subtitle {
-      color: #7aab7a;
-      margin-top: 4px;
-      font-size: 0.88rem;
-      letter-spacing: 1px;
+      color: #7a9bbf;
+      margin-top: 6px;
+      font-size: 0.82rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
     }
     .round-badge {
       display: inline-block;
-      background: #c9a84c;
-      color: #0d2410;
+      background: #c8a96e;
+      color: #081428;
       padding: 4px 18px;
       border-radius: 20px;
       font-weight: bold;
@@ -54,35 +66,35 @@
       padding: 28px 16px 40px;
     }
     .section-title {
-      color: #c9a84c;
-      font-size: 0.78rem;
+      color: #c8a96e;
+      font-size: 0.72rem;
       text-transform: uppercase;
       letter-spacing: 3px;
       margin-bottom: 14px;
       padding-bottom: 8px;
-      border-bottom: 1px solid #1e3e22;
+      border-bottom: 1px solid #1a2e4a;
     }
     .last-updated {
       text-align: right;
-      color: #3d6b42;
+      color: #3a5270;
       font-size: 0.75rem;
       margin-bottom: 20px;
     }
 
     /* ── Leaderboard ── */
     .leaderboard {
-      background: #0c1f0f;
-      border: 1px solid #1e3e22;
+      background: #0e1e38;
+      border: 1px solid #1a2e4a;
       border-radius: 10px;
       overflow: hidden;
       margin-bottom: 36px;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+      box-shadow: 0 4px 28px rgba(0,0,0,0.5);
     }
     .leaderboard table { width: 100%; border-collapse: collapse; }
-    .leaderboard thead tr { background: #162c1a; }
+    .leaderboard thead tr { background: #0f2348; }
     .leaderboard th {
       padding: 12px 14px;
-      color: #c9a84c;
+      color: #c8a96e;
       font-size: 0.72rem;
       text-transform: uppercase;
       letter-spacing: 1.5px;
@@ -94,32 +106,32 @@
     .leaderboard td {
       padding: 15px 14px;
       text-align: center;
-      border-bottom: 1px solid #162c1a;
+      border-bottom: 1px solid #132040;
       font-size: 0.92rem;
       transition: background 0.15s;
     }
     .leaderboard td.left { text-align: left; }
     .leaderboard tbody tr:last-child td { border-bottom: none; }
-    .leaderboard tbody tr:hover td { background: #111f13; }
+    .leaderboard tbody tr:hover td { background: #102040; }
 
-    .rank-1 td { background: rgba(201,168,76,0.10); }
+    .rank-1 td { background: rgba(200,169,110,0.12); }
     .rank-2 td { background: rgba(192,192,192,0.06); }
-    .rank-3 td { background: rgba(205,127,50,0.06); }
-    .rank-1:hover td { background: rgba(201,168,76,0.16) !important; }
+    .rank-3 td { background: rgba(180,130,80,0.07); }
+    .rank-1:hover td { background: rgba(200,169,110,0.18) !important; }
 
     .rank-num { font-weight: bold; width: 36px; }
-    .rank-1 .rank-num { color: #c9a84c; }
-    .rank-2 .rank-num { color: #b0b0b0; }
-    .rank-3 .rank-num { color: #cd7f32; }
+    .rank-1 .rank-num { color: #c8a96e; }
+    .rank-2 .rank-num { color: #b0b8c8; }
+    .rank-3 .rank-num { color: #b48250; }
 
     .team-name { font-weight: bold; font-size: 1rem; }
     .td-total { font-weight: bold; font-size: 1.05rem; }
 
     /* ── Score colours ── */
-    .under { color: #56c25a; }
-    .over  { color: #f06060; }
-    .even  { color: #e4f0e4; }
-    .dash  { color: #2e5233; }
+    .under { color: #4db8e8; }
+    .over  { color: #e86060; }
+    .even  { color: #e8edf5; }
+    .dash  { color: #2a3f5a; }
 
     /* ── Team Cards ── */
     .teams-grid {
@@ -128,22 +140,22 @@
       gap: 16px;
     }
     .card {
-      background: #0c1f0f;
-      border: 1px solid #1e3e22;
+      background: #0e1e38;
+      border: 1px solid #1a2e4a;
       border-radius: 10px;
       overflow: hidden;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+      box-shadow: 0 2px 14px rgba(0,0,0,0.35);
     }
     .card-header {
-      background: #162c1a;
+      background: #0f2348;
       padding: 12px 16px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 1px solid #1e3e22;
+      border-bottom: 1px solid #1a2e4a;
     }
-    .card-name { font-size: 1.05rem; font-weight: bold; color: #c9a84c; }
-    .card-rank { font-size: 0.75rem; color: #7aab7a; }
+    .card-name { font-size: 1.05rem; font-weight: bold; color: #c8a96e; }
+    .card-rank { font-size: 0.75rem; color: #7a9bbf; }
     .card-total { font-size: 1.25rem; font-weight: bold; }
 
     .player-row {
@@ -151,11 +163,11 @@
       justify-content: space-between;
       align-items: center;
       padding: 9px 16px;
-      border-bottom: 1px solid #0f1f12;
+      border-bottom: 1px solid #0e1e38;
       gap: 8px;
     }
     .player-row:last-child { border-bottom: none; }
-    .player-name { font-size: 0.87rem; color: #a8c8a8; flex: 1; }
+    .player-name { font-size: 0.87rem; color: #8aaac8; flex: 1; }
     .round-pills { display: flex; gap: 5px; }
     .pill {
       width: 30px;
@@ -163,8 +175,8 @@
       font-size: 0.78rem;
       padding: 2px 0;
       border-radius: 4px;
-      background: #08180b;
-      border: 1px solid #1e3e22;
+      background: #0b1629;
+      border: 1px solid #1a2e4a;
     }
     .player-total {
       font-weight: bold;
@@ -177,7 +189,7 @@
     footer {
       text-align: center;
       padding: 20px;
-      color: #2e5233;
+      color: #2a3f5a;
       font-size: 0.75rem;
     }
 
@@ -192,9 +204,9 @@
 <body>
 
 <header>
-  <div class="trophy">⛳</div>
-  <h1>US Open 2026</h1>
-  <div class="subtitle">The Boys' Draft Competition</div>
+  <div class="trophy">🏆</div>
+  <h1><span>US Open</span> 2026</h1>
+  <div class="subtitle">Shinnecock Hills &nbsp;·&nbsp; The Boys' Draft Competition</div>
   <div class="round-badge" id="round-badge">Loading...</div>
 </header>
 
