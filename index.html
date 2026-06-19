@@ -235,50 +235,50 @@
 //  Use null if the round hasn't been played yet
 // ================================================================
 
-const CURRENT_ROUND = 0; // 0 = not started, 1–4 = in progress or complete
+const CURRENT_ROUND = 1; // 0 = not started, 1–4 = in progress or complete
 
 const TEAMS = {
   "Pete": [
-    { name: "S. Scheffler",   r: [null, null, null, null] },
-    { name: "P. Reed",        r: [null, null, null, null] },
-    { name: "B. Koepka",      r: [null, null, null, null] },
-    { name: "A. Fitzpatrick", r: [null, null, null, null] },
-    { name: "H. Matsuyama",   r: [null, null, null, null] },
+    { name: "S. Scheffler",   r: [2, null, null, null] },
+    { name: "P. Reed",        r: [2, null, null, null] },
+    { name: "B. Koepka",      r: [3, null, null, null] },
+    { name: "A. Fitzpatrick", r: [1, null, null, null] },
+    { name: "H. Matsuyama",   r: [1, null, null, null] },
   ],
   "Buff": [
-    { name: "J. Rahm",        r: [null, null, null, null] },
-    { name: "R. Henley",      r: [null, null, null, null] },
-    { name: "C. Morikawa",    r: [null, null, null, null] },
-    { name: "J. Nieman",      r: [null, null, null, null] },
-    { name: "B. Griffin",     r: [null, null, null, null] },
+    { name: "J. Rahm",        r: [-2, null, null, null] },
+    { name: "R. Henley",      r: [0, null, null, null] },
+    { name: "C. Morikawa",    r: [3, null, null, null] },
+    { name: "J. Nieman",      r: [0, null, null, null] },
+    { name: "B. Griffin",     r: [1, null, null, null] },
   ],
   "Heath": [
-    { name: "M. Fitzpatrick", r: [null, null, null, null] },
-    { name: "L. Aberg",       r: [null, null, null, null] },
-    { name: "S. Burns",       r: [null, null, null, null] },
-    { name: "V. Hovland",     r: [null, null, null, null] },
-    { name: "R. McIntyre",    r: [null, null, null, null] },
+    { name: "M. Fitzpatrick", r: [-2, null, null, null] },
+    { name: "L. Aberg",       r: [-1, null, null, null] },
+    { name: "S. Burns",       r: [1, null, null, null] },
+    { name: "V. Hovland",     r: [6, null, null, null] },
+    { name: "R. McIntyre",    r: [1, null, null, null] },
   ],
   "Serge": [
-    { name: "T. Fleetwood",   r: [null, null, null, null] },
-    { name: "Si Woo Kim",     r: [null, null, null, null] },
-    { name: "W. Clarke",      r: [null, null, null, null] },
-    { name: "C. Gotterup",    r: [null, null, null, null] },
-    { name: "P. Cantlay",     r: [null, null, null, null] },
+    { name: "T. Fleetwood",   r: [0, null, null, null] },
+    { name: "Si Woo Kim",     r: [7, null, null, null] },
+    { name: "W. Clark",       r: [-6, null, null, null] },
+    { name: "C. Gotterup",    r: [5, null, null, null] },
+    { name: "P. Cantlay",     r: [4, null, null, null] },
   ],
   "Trav": [
-    { name: "R. McIlroy",     r: [null, null, null, null] },
-    { name: "T. Hatton",      r: [null, null, null, null] },
-    { name: "Cam. Smith",     r: [null, null, null, null] },
-    { name: "B. Dechambeau",  r: [null, null, null, null] },
-    { name: "A. Scott",       r: [null, null, null, null] },
+    { name: "R. McIlroy",     r: [-1, null, null, null] },
+    { name: "T. Hatton",      r: [4, null, null, null] },
+    { name: "Cam. Smith",     r: [5, null, null, null] },
+    { name: "B. Dechambeau",  r: [-1, null, null, null] },
+    { name: "A. Scott",       r: [3, null, null, null] },
   ],
   "Mick": [
-    { name: "C. Young",       r: [null, null, null, null] },
-    { name: "X. Schauffele",  r: [null, null, null, null] },
-    { name: "J. Thomas",      r: [null, null, null, null] },
-    { name: "J. Rose",        r: [null, null, null, null] },
-    { name: "M. McNealy",     r: [null, null, null, null] },
+    { name: "C. Young",       r: [2, null, null, null] },
+    { name: "X. Schauffele",  r: [2, null, null, null] },
+    { name: "J. Thomas",      r: [1, null, null, null] },
+    { name: "J. Rose",        r: [3, null, null, null] },
+    { name: "M. McNealy",     r: [2, null, null, null] },
   ],
 };
 
