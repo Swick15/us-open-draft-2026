@@ -101,8 +101,7 @@
 <script>
 // ================================================================
 //  SCORES — R3 In Progress
-//  Cut line: +4 (anyone +5 or worse after R2 = CUT)
-//  Par 70 · Shinnecock Hills
+//  Cut: +5 or worse after R2 · Par 70 · Shinnecock Hills
 // ================================================================
 
 const CURRENT_ROUND = 3;
@@ -125,13 +124,13 @@ const TEAMS = {
   ],
   "Heath": [
     { name: "M. Fitzpatrick", r: [-3,   0,   null, null] },
-    { name: "L. Aberg",       r: [-1,   2,   null, null] },
+    { name: "L. Aberg",       r: [-1,   2,    6,   null] },
     { name: "S. Burns",       r: [1,   -2,   null, null] },
     { name: "V. Hovland",     r: [6,   -1,   null, null] },  // CUT
     { name: "R. McIntyre",    r: [0,    4,    3,   null] },
   ],
   "Serge": [
-    { name: "T. Fleetwood",   r: [0,    1,   null, null] },
+    { name: "T. Fleetwood",   r: [0,    1,    0,   null] },
     { name: "Si Woo Kim",     r: [7,   -1,   null, null] },  // CUT
     { name: "W. Clark",       r: [-6,  -1,   null, null] },
     { name: "C. Gotterup",    r: [5,   -1,    3,   null] },
@@ -148,7 +147,7 @@ const TEAMS = {
     { name: "C. Young",       r: [2,    0,    3,   null] },
     { name: "X. Schauffele",  r: [1,   -4,   null, null] },
     { name: "J. Thomas",      r: [1,   -2,   null, null] },
-    { name: "J. Rose",        r: [1,    0,   null, null] },
+    { name: "J. Rose",        r: [1,    0,    3,   null] },
     { name: "M. McNealy",     r: [2,   -2,   null, null] },
   ],
 };
@@ -199,8 +198,7 @@ function hasAnyScore(players) {
 
 function buildLeaderboard() {
   const entries = Object.entries(TEAMS).map(([name, players]) => ({
-    name,
-    players,
+    name, players,
     rounds: [0,1,2,3].map(i => teamRoundTotal(players, i)),
     total: teamTotal(players),
     played: hasAnyScore(players),
@@ -215,7 +213,6 @@ function buildLeaderboard() {
 
   const tbody = document.getElementById("leaderboard-body");
   tbody.innerHTML = "";
-
   entries.forEach((e, i) => {
     const rank = i + 1;
     const tr = document.createElement("tr");
@@ -229,7 +226,6 @@ function buildLeaderboard() {
     `;
     tbody.appendChild(tr);
   });
-
   return entries;
 }
 
@@ -240,23 +236,19 @@ function buildLeaderboard() {
 function buildCards(entries) {
   const grid = document.getElementById("teams-grid");
   grid.innerHTML = "";
-
   entries.forEach((e, i) => {
     const rank = e.played ? `#${i + 1}` : "–";
     const totalFmt = e.played ? fmtScore(e.total) : { text: "–", cls: "dash" };
     const card = document.createElement("div");
     card.className = "card";
-
     const playerRows = e.players.map(p => {
       const cut = isCut(p);
       const tot = playerHasPlayed(p) ? fmtScore(playerTotal(p)) : { text: "–", cls: "dash" };
-
       let pillsHtml = '';
       [0, 1].forEach(idx => {
         const s = fmtScore(p.r[idx]);
         pillsHtml += `<span class="pill ${s.cls}">${s.text}</span>`;
       });
-
       if (cut) {
         pillsHtml += `<span class="pill-cut">CUT</span>`;
       } else {
@@ -265,7 +257,6 @@ function buildCards(entries) {
           pillsHtml += `<span class="pill ${s.cls}">${s.text}</span>`;
         });
       }
-
       return `
         <div class="player-row${cut ? ' is-cut' : ''}">
           <span class="player-name">${p.name}</span>
@@ -273,7 +264,6 @@ function buildCards(entries) {
           <span class="player-total ${tot.cls}">${tot.text}</span>
         </div>`;
     }).join("");
-
     card.innerHTML = `
       <div class="card-header">
         <div>
