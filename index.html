@@ -17,6 +17,8 @@
     .container { max-width: 980px; margin: 0 auto; padding: 28px 16px 40px; }
     .section-title { color: #c8a96e; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid #1a2e4a; }
     .last-updated { text-align: right; color: #3a5270; font-size: 0.75rem; margin-bottom: 20px; }
+
+    /* Leaderboard */
     .leaderboard { background: #0e1e38; border: 1px solid #1a2e4a; border-radius: 10px; overflow: hidden; margin-bottom: 36px; box-shadow: 0 4px 28px rgba(0,0,0,0.5); }
     .leaderboard table { width: 100%; border-collapse: collapse; }
     .leaderboard thead tr { background: #0f2348; }
@@ -36,10 +38,14 @@
     .rank-3 .rank-num { color: #b48250; }
     .team-name { font-weight: bold; font-size: 1rem; }
     .td-total { font-weight: bold; font-size: 1.05rem; }
+
+    /* Score colours */
     .under { color: #c8a96e; }
     .over  { color: #e86060; }
     .even  { color: #e8edf5; }
     .dash  { color: #2a3f5a; }
+
+    /* Team Cards */
     .teams-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 16px; }
     .card { background: #0e1e38; border: 1px solid #1a2e4a; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 14px rgba(0,0,0,0.35); }
     .card-header { background: #0f2348; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1a2e4a; }
@@ -48,9 +54,24 @@
     .card-total { font-size: 1.25rem; font-weight: bold; }
     .player-row { display: flex; justify-content: space-between; align-items: center; padding: 9px 16px; border-bottom: 1px solid #0e1e38; gap: 8px; }
     .player-row:last-child { border-bottom: none; }
+    .player-row.is-cut { opacity: 0.55; }
     .player-name { font-size: 0.87rem; color: #8aaac8; flex: 1; }
-    .round-pills { display: flex; gap: 5px; }
+    .round-pills { display: flex; gap: 5px; align-items: center; }
     .pill { width: 30px; text-align: center; font-size: 0.78rem; padding: 2px 0; border-radius: 4px; background: #0b1629; border: 1px solid #1a2e4a; }
+
+    /* CUT badge — replaces R3 + R4 pills */
+    .pill-cut {
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.72rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      background: #2a1a1a;
+      border: 1px solid #5a2a2a;
+      color: #a04040;
+    }
+
     .player-total { font-weight: bold; font-size: 0.88rem; width: 38px; text-align: right; }
     footer { text-align: center; padding: 20px; color: #2a3f5a; font-size: 0.75rem; }
     @media (max-width: 600px) {
@@ -98,22 +119,23 @@
 
 <script>
 // ================================================================
-//  SCORES — R2 Complete
+//  SCORES — R2 Complete · Cut line: +4 (anyone +5 or worse = CUT)
 //  Par 70 · Shinnecock Hills
 // ================================================================
 
-const CURRENT_ROUND = 2; // Round 2 complete, awaiting R3
+const CURRENT_ROUND = 2;
+const CUT_SCORE = 5; // +5 or worse = missed cut
 
 const TEAMS = {
   "Pete": [
     { name: "S. Scheffler",   r: [2,   -2,   null, null] },
-    { name: "P. Reed",        r: [2,    3,   null, null] },
-    { name: "B. Koepka",      r: [3,    7,   null, null] },
+    { name: "P. Reed",        r: [2,    3,   null, null] },  // CUT (+5)
+    { name: "B. Koepka",      r: [3,    7,   null, null] },  // CUT (+10)
     { name: "A. Fitzpatrick", r: [1,   -1,   null, null] },
     { name: "H. Matsuyama",   r: [1,    3,   null, null] },
   ],
   "Buff": [
-    { name: "J. Rahm",        r: [-2,   8,   null, null] },
+    { name: "J. Rahm",        r: [-2,   8,   null, null] },  // CUT (+6)
     { name: "R. Henley",      r: [0,    3,   null, null] },
     { name: "C. Morikawa",    r: [3,   -5,   null, null] },
     { name: "J. Nieman",      r: [8,   -5,   null, null] },
@@ -123,22 +145,22 @@ const TEAMS = {
     { name: "M. Fitzpatrick", r: [-3,   0,   null, null] },
     { name: "L. Aberg",       r: [-1,   2,   null, null] },
     { name: "S. Burns",       r: [1,   -2,   null, null] },
-    { name: "V. Hovland",     r: [6,   -1,   null, null] },
+    { name: "V. Hovland",     r: [6,   -1,   null, null] },  // CUT (+5)
     { name: "R. McIntyre",    r: [0,    4,   null, null] },
   ],
   "Serge": [
     { name: "T. Fleetwood",   r: [0,    1,   null, null] },
-    { name: "Si Woo Kim",     r: [7,   -1,   null, null] },
+    { name: "Si Woo Kim",     r: [7,   -1,   null, null] },  // CUT (+6)
     { name: "W. Clark",       r: [-6,  -1,   null, null] },
     { name: "C. Gotterup",    r: [5,   -1,   null, null] },
-    { name: "P. Cantlay",     r: [4,    2,   null, null] },
+    { name: "P. Cantlay",     r: [4,    2,   null, null] },  // CUT (+6)
   ],
   "Trav": [
     { name: "R. McIlroy",     r: [-1,   1,   null, null] },
     { name: "T. Hatton",      r: [4,   -2,   null, null] },
-    { name: "Cam. Smith",     r: [5,    1,   null, null] },
-    { name: "B. Dechambeau",  r: [0,    5,   null, null] },
-    { name: "A. Scott",       r: [3,    5,   null, null] },
+    { name: "Cam. Smith",     r: [5,    1,   null, null] },  // CUT (+6)
+    { name: "B. Dechambeau",  r: [0,    5,   null, null] },  // CUT (+5)
+    { name: "A. Scott",       r: [3,    5,   null, null] },  // CUT (+8)
   ],
   "Mick": [
     { name: "C. Young",       r: [2,    0,   null, null] },
@@ -150,7 +172,7 @@ const TEAMS = {
 };
 
 // ================================================================
-//  RENDERING
+//  HELPERS
 // ================================================================
 
 function fmtScore(val) {
@@ -168,6 +190,15 @@ function playerHasPlayed(player) {
   return player.r.some(v => v !== null);
 }
 
+// A player missed the cut if their R1+R2 total >= CUT_SCORE
+// (only applies once R2 is complete, i.e. both R1 and R2 are non-null)
+function isCut(player) {
+  const r1 = player.r[0];
+  const r2 = player.r[1];
+  if (r1 === null || r2 === null) return false;
+  return (r1 + r2) >= CUT_SCORE;
+}
+
 function teamRoundTotal(players, roundIdx) {
   const scores = players.map(p => p.r[roundIdx]).filter(v => v !== null);
   if (scores.length === 0) return null;
@@ -181,6 +212,10 @@ function teamTotal(players) {
 function hasAnyScore(players) {
   return players.some(playerHasPlayed);
 }
+
+// ================================================================
+//  LEADERBOARD
+// ================================================================
 
 function buildLeaderboard() {
   const entries = Object.entries(TEAMS).map(([name, players]) => ({
@@ -218,6 +253,10 @@ function buildLeaderboard() {
   return entries;
 }
 
+// ================================================================
+//  PLAYER CARDS
+// ================================================================
+
 function buildCards(entries) {
   const grid = document.getElementById("teams-grid");
   grid.innerHTML = "";
@@ -227,16 +266,35 @@ function buildCards(entries) {
     const totalFmt = e.played ? fmtScore(e.total) : { text: "–", cls: "dash" };
     const card = document.createElement("div");
     card.className = "card";
+
     const playerRows = e.players.map(p => {
+      const cut = isCut(p);
       const tot = playerHasPlayed(p) ? fmtScore(playerTotal(p)) : { text: "–", cls: "dash" };
-      const pills = p.r.map(v => { const s = fmtScore(v); return `<span class="pill ${s.cls}">${s.text}</span>`; }).join("");
+
+      // Build round pills — R1 and R2 always shown; R3/R4 replaced with CUT badge if missed cut
+      let pillsHtml = '';
+      [0, 1].forEach(idx => {
+        const s = fmtScore(p.r[idx]);
+        pillsHtml += `<span class="pill ${s.cls}">${s.text}</span>`;
+      });
+
+      if (cut) {
+        pillsHtml += `<span class="pill-cut">CUT</span>`;
+      } else {
+        [2, 3].forEach(idx => {
+          const s = fmtScore(p.r[idx]);
+          pillsHtml += `<span class="pill ${s.cls}">${s.text}</span>`;
+        });
+      }
+
       return `
-        <div class="player-row">
+        <div class="player-row${cut ? ' is-cut' : ''}">
           <span class="player-name">${p.name}</span>
-          <div class="round-pills">${pills}</div>
+          <div class="round-pills">${pillsHtml}</div>
           <span class="player-total ${tot.cls}">${tot.text}</span>
         </div>`;
     }).join("");
+
     card.innerHTML = `
       <div class="card-header">
         <div>
@@ -250,6 +308,10 @@ function buildCards(entries) {
     grid.appendChild(card);
   });
 }
+
+// ================================================================
+//  RENDER
+// ================================================================
 
 function roundLabel() {
   if (CURRENT_ROUND === 0) return "Tournament Not Started";
